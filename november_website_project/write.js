@@ -2,25 +2,25 @@
 const div = document.getElementById("demo"); 
 var current_date = new Date();
 document.getElementById("demo").innerHTML = "<p>THIS</p>";
-div.textContent = current_date;*/
+div.textContent = current_date;*///this code could be used later in some way to get the current date for dynacmic date on the calendar
 
 
-function getDates(year, month) {
-    const datesarray = [];
-    let date = new Date(year, month, 1);
-    while (date.getMonth() === month) {
-        datesarray.push({
+function getDates(year, month) {        //get the dates for a given month and year
+    const datesarray = [];              //creates an array, datesarray
+    let date = new Date(year, month, 1);// date is equal to a date value equal to month and year
+    while (date.getMonth() === month) { //while the date variable is still equal to the selected month
+        datesarray.push({               //push to the array the date number and the day of week
             date:date.toDateString(),
             day: date.toLocaleString('default', {weekday: 'long'}), 
         });
 
-        date.setDate(date.getDate() + 1);
+        date.setDate(date.getDate() + 1);//increase the date by 1 to check the next day of the month
     }
-    return datesarray;
+    return datesarray;                  //return array after function completed
 }
 
-function displayDates(year, month) {
-    const calendar = document.getElementById('demo');
+function displayDates(year, month) {    //this function print all of the dates stored in the datesarray on the webpage
+    const calendar = document.getElementById('calendar');   //
     const datesarray = getDates(year, month);
 
     calendar.innerHTML = '';
@@ -33,13 +33,13 @@ function displayDates(year, month) {
     calendar.appendChild(list);
 }
 
-var year = 2025;
-var month = 0;
-displayDates(year, month);
-document.getElementById('monthSelect').addEventListener('click',() =>{
-    var monthSelect = document.getElementById('monthSelect');
-    var month = parseInt(monthSelect.value) -1;
-    displayDates(year, month);
+var year = 2025; //set default year to 2025
+var month = 0;  //set default month to 0, january
+displayDates(year, month);  //display all of the dates for the given month and year
+document.getElementById('monthSelect').addEventListener('click',() =>{  //when the drop down menu changes
+    var monthSelect = document.getElementById('monthSelect');           //get the selected month from the dropdown
+    var month = parseInt(monthSelect.value) -1;                         //month - 1 due to the way the dropdown selects the months ie january = 1 not 0
+    displayDates(year, month);                                          //display the dates again
 });
 
 
