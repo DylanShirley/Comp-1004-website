@@ -1,17 +1,9 @@
-/*let text = '{ "employees" : [' +
-'{ "firstName":"John" , "lastName":"Doe" },' +
-'{ "firstName":"Anna" , "lastName":"Smith" },' +
-'{ "firstName":"Peter" , "lastName":"Jones" } ]}';
-
-const obj = JSON.parse(text);
-
-document.getElementById("demo").innerHTML = 
-obj.employees[1].firstName + " " + obj.employees[1].lastName;*/
-
+/*
 const div = document.getElementById("demo"); 
 var current_date = new Date();
 document.getElementById("demo").innerHTML = "<p>THIS</p>";
-div.textContent = current_date;
+div.textContent = current_date;*/
+
 
 function getDates(year, month) {
     const datesarray = [];
@@ -43,5 +35,11 @@ function displayDates(year, month) {
 
 var year = 2025;
 var month = 0;
-
 displayDates(year, month);
+document.getElementById('monthSelect').addEventListener('click',() =>{
+    var monthSelect = document.getElementById('monthSelect');
+    var month = parseInt(monthSelect.value) -1;
+    displayDates(year, month);
+});
+
+
