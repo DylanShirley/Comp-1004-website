@@ -24,13 +24,26 @@ function displayDates(year, month) {    //this function print all of the dates s
     const datesarray = getDates(year, month);
 
     calendar.innerHTML = '';
-    const list = document.createElement("ul");
+    //const list = document.createElement("div");
     datesarray.forEach(entry =>{
-        const listitem = document.createElement('li');
-        listitem.textContent = `${entry.date} - ${entry.day}`;
-        list.appendChild(listitem);
+        const dateDiv = document.createElement('div');
+        //dateDiv.classList.add('date-entry');
+        dateDiv.textContent = `${entry.date}`; //${entry.day}
+        calendar.appendChild(dateDiv);
     });
-    calendar.appendChild(list);
+    //calendar.appendChild(list);
+}
+
+function saveEvent() {
+    const eventName = document.getElementById("event_name").value;
+    const eventDate = document.getElementById("event_date").value;
+
+    const eventData = {
+        event_name:eventName,
+        event_date:eventDate
+    };
+
+
 }
 
 var year = 2025; //set default year to 2025
