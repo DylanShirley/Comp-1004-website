@@ -21,17 +21,31 @@ function getDates(year, month) {        //get the dates for a given month and ye
 
 function displayDates(year, month) {    //this function print all of the dates stored in the datesarray on the webpage
     const calendar = document.getElementById('calendar');   //
-    const datesarray = getDates(year, month);
+    const datesArray = getDates(year, month);
 
-    calendar.innerHTML = '';
-    //const list = document.createElement("div");
-    datesarray.forEach(entry =>{
+    calendar.innerHTML = '';    //clear the calendar div of the short test values I put in there
+    const firstDate = datesArray[0].day;
+    const weekdayMap = {    //set how many empty squares there will be at the start of the month based on first day of month
+        "Monday" :0,
+        "Tuesday":1,
+        "Wednesday":2,
+        "Thursday":3,
+        "Friday":4,
+        "Saturday":5,
+        "Sunday":6
+    };
+    const emptyDivs = weekdayMap[firstDate];
+    for (let i= 0;i < emptyDivs; i++){  //I'm not sire why this is working but I'm not going to look horse in the mouth
         const dateDiv = document.createElement('div');
-        //dateDiv.classList.add('date-entry');
+        calendar.appendChild(dateDiv);
+    };
+
+    datesArray.forEach(entry =>{    //print each date on to the webpage
+        const dateDiv = document.createElement('div');//put them inside divs
         dateDiv.textContent = `${entry.date}`; //${entry.day}
         calendar.appendChild(dateDiv);
     });
-    //calendar.appendChild(list);
+
 }
 
 function saveEvent() {
