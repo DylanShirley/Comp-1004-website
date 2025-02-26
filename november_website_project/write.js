@@ -4,7 +4,6 @@ var current_date = new Date();
 document.getElementById("demo").innerHTML = "<p>THIS</p>";
 div.textContent = current_date;*///this code could be used later in some way to get the current date for dynacmic date on the calendar
 
-
 function getDates(year, month) {        //get the dates for a given month and year
     const datesarray = [];              //creates an array, datesarray
     let date = new Date(year, month, 1);// date is equal to a date value equal to month and year
@@ -35,28 +34,16 @@ function displayDates(year, month) {    //this function print all of the dates s
         "Sunday":6
     };
     const emptyDivs = weekdayMap[firstDate];
-    for (let i= 0;i < emptyDivs; i++){  //I'm not sire why this is working but I'm not going to look horse in the mouth
+    for (let i= 0;i < emptyDivs; i++){  //I'm not sure why this is working but I'm not going to look horse in the mouth
         const dateDiv = document.createElement('div');
         calendar.appendChild(dateDiv);
     };
 
     datesArray.forEach(entry =>{    //print each date on to the webpage
         const dateDiv = document.createElement('div');//put them inside divs
-        dateDiv.textContent = `${entry.date}`; //${entry.day}
+        dateDiv.textContent = `${entry.date}`; 
         calendar.appendChild(dateDiv);
     });
-
-}
-
-function saveEvent() {
-    const eventName = document.getElementById("event_name").value;
-    const eventDate = document.getElementById("event_date").value;
-
-    const eventData = {
-        event_name:eventName,
-        event_date:eventDate
-    };
-
 
 }
 
@@ -66,7 +53,7 @@ displayDates(year, month);  //display all of the dates for the given month and y
 document.getElementById('monthSelect').addEventListener('click',() =>{  //when the drop down menu changes
     var monthSelect = document.getElementById('monthSelect');           //get the selected month from the dropdown
     var month = parseInt(monthSelect.value) -1;                         //month - 1 due to the way the dropdown selects the months ie january = 1 not 0
+    var yearSelect = document.getElementById('yearSelect');
+    year = parseInt(yearSelect.value);
     displayDates(year, month);                                          //display the dates again
 });
-
-
