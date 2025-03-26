@@ -3,7 +3,6 @@ const div = document.getElementById("demo");
 var current_date = new Date();
 document.getElementById("demo").innerHTML = "<p>THIS</p>";
 div.textContent = current_date;*///this code could be used later in some way to get the current date for dynacmic date on the calendar
-
 function getDates(year, month) {        //get the dates for a given month and year
     const datesarray = [];              //creates an array, datesarray
     let date = new Date(year, month, 1);// date is equal to a date value equal to month and year
@@ -47,6 +46,24 @@ function displayDates(year, month) {    //this function print all of the dates s
 
 }
 
+function saveEvent() {
+    var date = document.getElementById('event_date').value;
+    var eventData = {"date" : date};
+    var blob = new Blob([JSON.stringify(eventData)], {type: "text/plain"});//make into blob
+    
+    var link = document.createElement("a");//create element('a')
+    link.href = URL.createObjectURL(blob);//give url using url.create object.url
+    link.download = "eventdata.txt";//download property be name of file to save to
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
+
+    //reference of 'a' to url
+    //simulate "a" click
+    //revoke url
+}
+
 var year = 2025; //set default year to 2025
 var month = 0;  //set default month to 0, january
 displayDates(year, month);  //display all of the dates for the given month and year
@@ -57,3 +74,5 @@ document.getElementById('monthSelect').addEventListener('click',() =>{  //when t
     year = parseInt(yearSelect.value);
     displayDates(year, month);                                          //display the dates again
 });
+
+//make blob to store json
