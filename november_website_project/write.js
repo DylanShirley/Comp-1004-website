@@ -40,7 +40,7 @@ function displayDates(year, month) {    //this function print all of the dates s
 
     datesArray.forEach(entry =>{    //print each date on to the webpage
         const dateDiv = document.createElement('div');//put them inside divs
-        dateDiv.textContent = `${entry.date}`; 
+        dateDiv.textContent = `${entry.date}, ${entry.day}`; 
         calendar.appendChild(dateDiv);
     });
 
@@ -53,7 +53,7 @@ function saveEvent() {
     
     var link = document.createElement("a");//create element('a')
     link.href = URL.createObjectURL(blob);//give url using url.create object.url
-    link.download = "eventdata.txt";//download property be name of file to save to
+    link.download = "eventdata.json";//download property be name of file to save to
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -63,6 +63,9 @@ function saveEvent() {
     //simulate "a" click
     //revoke url
 }
+function loadFile() {
+    
+}
 
 var year = 2025; //set default year to 2025
 var month = 0;  //set default month to 0, january
@@ -71,8 +74,35 @@ document.getElementById('monthSelect').addEventListener('click',() =>{  //when t
     var monthSelect = document.getElementById('monthSelect');           //get the selected month from the dropdown
     var month = parseInt(monthSelect.value) -1;                         //month - 1 due to the way the dropdown selects the months ie january = 1 not 0
     var yearSelect = document.getElementById('yearSelect');
-    year = parseInt(yearSelect.value);
+    var year = parseInt(yearSelect.value);
     displayDates(year, month);                                          //display the dates again
 });
+document.getElementById('yearSelect').addEventListener('click',() =>{  //when the drop down menu changes
+    var monthSelect = document.getElementById('monthSelect');           //get the selected month from the dropdown
+    var month = parseInt(monthSelect.value) -1;                         //month - 1 due to the way the dropdown selects the months ie january = 1 not 0
+    var yearSelect = document.getElementById('yearSelect');
+    var year = parseInt(yearSelect.value);
+    displayDates(year, month);                                          //display the dates again
+});
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('inputfile').addEventListener("change", function(event){
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var filecontent = e.target.result;
+
+                try {
+                    var jsondata = JSON.parse(filecontent);
+                    document.getElementById("output").textContent = "loaded date: "+ jsondata.date;
+                    var savedDate = jsondata.date;
+                }   catch (error) {
+                    document.getElementById("output").textContent = "failed";
+                }
+            };
+            reader.readAsText(file);
+        }
+    })
+})
 
 //make blob to store json

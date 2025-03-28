@@ -40,7 +40,14 @@
                 <p>Event date:</p>
                 <input type="date" id="event_date" name="event_date"><br>
                 <input type="button" value="submit" onclick="saveEvent()">
+                <input type="button" value="Add" onclick="addEvent()">
+                <input type="file" value="load" id = "inputfile" onclick="loadFile()">
             </form>
+            <br>
+            <br>
+            <pre id = "output">
+              
+            </pre>
             <br>
             <br>
             <!--month select - allows the user to pick a month and it be displayed on screen-->
