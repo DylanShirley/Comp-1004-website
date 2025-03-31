@@ -1,8 +1,3 @@
-/*
-const div = document.getElementById("demo"); 
-var current_date = new Date();
-document.getElementById("demo").innerHTML = "<p>THIS</p>";
-div.textContent = current_date;*///this code could be used later in some way to get the current date for dynacmic date on the calendar
 function getDates(year, month) {        //get the dates for a given month and year
     const datesarray = [];              //creates an array, datesarray
     let date = new Date(year, month, 1);// date is equal to a date value equal to month and year
@@ -37,34 +32,35 @@ function displayDates(year, month) {    //this function print all of the dates s
         const dateDiv = document.createElement('div');
         calendar.appendChild(dateDiv);
     };
-
+    const today = new Date();   //get todays date
+    const todaystr = today.toDateString();  //turn todays date into a date string
     datesArray.forEach(entry =>{    //print each date on to the webpage
         const dateDiv = document.createElement('div');//put them inside divs
         dateDiv.textContent = `${entry.date}, ${entry.day}`; 
+
+        if (entry.date === todaystr) {  //checks to see if the selected date is todays date
+            dateDiv.classList.add('currentDay');    //set it to a different colour
+        }
+    
         calendar.appendChild(dateDiv);
     });
 
 }
 
 function saveEvent() {
-    var date = document.getElementById('event_date').value;
-    var eventData = {"date" : date};
-    var blob = new Blob([JSON.stringify(eventData)], {type: "text/plain"});//make into blob
+    var date = document.getElementById('event_date').value;//get the date from the html
+    var eventInfo = document.getElementById('event_name').value;
+    var eventData = {"date" : date, "info": eventInfo};//this is the JSON
+    var blob = new Blob([JSON.stringify(eventData, null, 2)], {type: "text/plain"});//make into blob
     
     var link = document.createElement("a");//create element('a')
     link.href = URL.createObjectURL(blob);//give url using url.create object.url
     link.download = "eventdata.json";//download property be name of file to save to
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(link.href);
+    document.body.appendChild(link);//create a link for saving the data
+    link.click();//simulates a click on the link
+    document.body.removeChild(link);//remove the link
+    URL.revokeObjectURL(link.href); //revoke the url
 
-    //reference of 'a' to url
-    //simulate "a" click
-    //revoke url
-}
-function loadFile() {
-    
 }
 
 var year = 2025; //set default year to 2025
@@ -84,25 +80,23 @@ document.getElementById('yearSelect').addEventListener('click',() =>{  //when th
     var year = parseInt(yearSelect.value);
     displayDates(year, month);                                          //display the dates again
 });
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('inputfile').addEventListener("change", function(event){
-        var file = event.target.files[0];
-        if (file) {
-            var reader = new FileReader();
+document.addEventListener("DOMContentLoaded", function() {              //display the entered event info onto the screen
+    document.getElementById('inputfile').addEventListener("change", function(event){    
+        var file = event.target.files[0];                               //input file
+        if (file) {                                                     //if file is present
+            var reader = new FileReader();                              //read the file
             reader.onload = function(e) {
                 var filecontent = e.target.result;
 
-                try {
-                    var jsondata = JSON.parse(filecontent);
-                    document.getElementById("output").textContent = "loaded date: "+ jsondata.date;
-                    var savedDate = jsondata.date;
-                }   catch (error) {
-                    document.getElementById("output").textContent = "failed";
+                try {                                                   //try to
+                    var jsondata = JSON.parse(filecontent);             //parse the files contents
+                    document.getElementById("output").textContent = "loaded date: "+ jsondata.date + "\nmessage: " + jsondata.info;
+                    var savedDate = jsondata.date;                              //the json data is saved as a date
+                }   catch (error) {                                             //check for error
+                    document.getElementById("output").textContent = "failed";   //failed to read file
                 }
             };
             reader.readAsText(file);
         }
     })
 })
-
-//make blob to store json

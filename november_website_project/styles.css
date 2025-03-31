@@ -3,9 +3,6 @@ top_nav {
     color: white;
 }
 
-body {
-    background-color:white;
-}
 
 bor {
     border-style:solid;
@@ -25,4 +22,11 @@ bor {
     text-align: center;
     border: black 1px solid;
     padding:10px;
+}
+
+.currentDay {
+    background-color: yellow;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
 }
