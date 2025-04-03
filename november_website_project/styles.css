@@ -24,9 +24,3 @@ bor {
     padding:10px;
 }
 
-.currentDay {
-    background-color: yellow;
-    color: black;
-    font-weight: bold;
-    border-radius: 5px;
-}

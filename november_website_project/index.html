@@ -9,31 +9,13 @@
     .currentDay {
     background-color: yellow;
     }
+
+    .eventDate {
+      background-color: red;
+    }
     </Style>
     </head>
 <body>
-    <!--nav bar start-->
-    <!--
-    <nav class="navbar navbar-expand-lg" style="background-color: #8b24ff;">
-        <div class="container-fluid  top_nav">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    -->
-    <!--nav bar end-->
 
     <div class="row">
         <div class="col-4" style="border-style:solid; border-color: black; border-radius: 10px; border-width: 5px;">
@@ -44,7 +26,7 @@
                 <p>Event date:</p>
                 <input type="date" id="event_date" name="event_date"><br>
                 <input type="button" value="submit" onclick="saveEvent()">
-                <input type="file" value="load" id = "inputfile" onclick="loadFile()">
+                <input type="file" value="load" id = "inputfile" onclick="loadFile()"> <!--might not need this onclick here-->
             </form>
             <br>
             <br>

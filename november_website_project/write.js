@@ -40,8 +40,15 @@ function displayDates(year, month) {    //this function print all of the dates s
 
         if (entry.date === todaystr) {  //checks to see if the selected date is todays date
             dateDiv.classList.add('currentDay');    //set it to a different colour
+        };
+
+        if (eventDateStr){
+            const entryDateLocal = new Date(entry.date);    //store the current selected date
+            const entryDateFormatted = `${entryDateLocal.getFullYear()}-${String(entryDateLocal.getMonth() + 1).padStart(2, "0")}-${String(entryDateLocal.getDate()).padStart(2, "0")}`;    //format the selected date tp follow the format that is stored in the json file
+            if (eventDateStr && entryDateFormatted === eventDateStr) {  //check to see if it is the same date
+                dateDiv.classList.add('eventDate');                     //add the class for the event colour
+            }
         }
-    
         calendar.appendChild(dateDiv);
     });
 
@@ -63,9 +70,14 @@ function saveEvent() {
 
 }
 
-var year = 2025; //set default year to 2025
-var month = 0;  //set default month to 0, january
+
+
+let eventDateStr = null;
+let year = 2025; //set default year to 2025
+let month = 0;  //set default month to 0, january
+
 displayDates(year, month);  //display all of the dates for the given month and year
+
 document.getElementById('monthSelect').addEventListener('click',() =>{  //when the drop down menu changes
     var monthSelect = document.getElementById('monthSelect');           //get the selected month from the dropdown
     var month = parseInt(monthSelect.value) -1;                         //month - 1 due to the way the dropdown selects the months ie january = 1 not 0
@@ -73,6 +85,7 @@ document.getElementById('monthSelect').addEventListener('click',() =>{  //when t
     var year = parseInt(yearSelect.value);
     displayDates(year, month);                                          //display the dates again
 });
+
 document.getElementById('yearSelect').addEventListener('click',() =>{  //when the drop down menu changes
     var monthSelect = document.getElementById('monthSelect');           //get the selected month from the dropdown
     var month = parseInt(monthSelect.value) -1;                         //month - 1 due to the way the dropdown selects the months ie january = 1 not 0
@@ -80,6 +93,7 @@ document.getElementById('yearSelect').addEventListener('click',() =>{  //when th
     var year = parseInt(yearSelect.value);
     displayDates(year, month);                                          //display the dates again
 });
+
 document.addEventListener("DOMContentLoaded", function() {              //display the entered event info onto the screen
     document.getElementById('inputfile').addEventListener("change", function(event){    
         var file = event.target.files[0];                               //input file
@@ -92,11 +106,14 @@ document.addEventListener("DOMContentLoaded", function() {              //displa
                     var jsondata = JSON.parse(filecontent);             //parse the files contents
                     document.getElementById("output").textContent = "loaded date: "+ jsondata.date + "\nmessage: " + jsondata.info;
                     var savedDate = jsondata.date;                              //the json data is saved as a date
+                    eventDateStr = savedDate;
+                    displayDates(year, month);
                 }   catch (error) {                                             //check for error
                     document.getElementById("output").textContent = "failed";   //failed to read file
                 }
             };
             reader.readAsText(file);
         }
+
     })
 })
